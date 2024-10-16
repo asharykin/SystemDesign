@@ -1,0 +1,58 @@
+POST http://localhost:8000/token
+Content-Type: application/x-www-form-urlencoded
+
+grant_type=password&username=admin&password=secret
+###
+GET http://localhost:8000/users
+Authorization: Bearer
+###
+GET http://localhost:8000/users/admin
+Authorization: Bearer
+###
+GET http://localhost:8000/users?first_name=Admin&last_name=Adminov
+Authorization: Bearer
+###
+POST http://localhost:8000/users
+Authorization: Bearer
+Content-Type: application/json
+
+{"username": "iivanov", "password": "ivan1234", "first_name": "Ivan", "last_name": "Ivanov", "email": "iivanov@gmail.com", "address": "6 Tverskaya Street Moscow"}
+###
+POST http://localhost:8000/parcels
+Authorization: Bearer
+Content-Type: application/json
+
+{"description": "Clothes", "weight": 2.57, "user_id": 1}
+###
+POST http://localhost:8000/parcels
+Authorization: Bearer
+Content-Type: application/json
+
+{"description": "Stationery", "weight": 0.42, "user_id": 2}
+###
+GET http://localhost:8000/parcels
+Authorization: Bearer
+###
+GET http://localhost:8000/parcels?user_id=1
+Authorization: Bearer
+###
+POST http://localhost:8000/deliveries
+Authorization: Bearer
+Content-Type: application/json
+
+{"sender_id": 1, "receiver_id": 2}
+###
+POST http://localhost:8000/deliveries
+Authorization: Bearer
+Content-Type: application/json
+
+{"sender_id": 2, "receiver_id": 1}
+###
+GET http://localhost:8000/deliveries
+Authorization: Bearer
+###
+GET http://localhost:8000/deliveries?sender_id=1
+Authorization: Bearer
+###
+GET http://localhost:8000/deliveries?receiver_id=1
+Authorization: Bearer
