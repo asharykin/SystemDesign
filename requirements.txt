@@ -3,6 +3,5 @@ pydantic
 uvicorn
 python-multipart
 jose
-jwt
 passlib
 bcrypt
