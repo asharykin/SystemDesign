@@ -55,7 +55,7 @@ class ParcelService:
         self.parcels[parcel.id] = parcel
         return parcel
 
-    def find_all_or_by_user_id(self, user_id: int):
+    def find_by_user_id(self, user_id: int):
         return [parcel for parcel in self.parcels.values() if user_id is None or parcel.user_id == user_id]
 
 
@@ -70,7 +70,7 @@ class DeliveryService:
         self.deliveries[delivery.id] = delivery
         return delivery
 
-    def find_all_or_by_sender_or_receiver_id(self, sender_id: Optional[int] = None, receiver_id: Optional[int] = None):
+    def find_by_sender_or_receiver_id(self, sender_id: Optional[int] = None, receiver_id: Optional[int] = None):
         return [
             delivery for delivery in self.deliveries.values()
             if (sender_id is None or delivery.sender_id == sender_id) and

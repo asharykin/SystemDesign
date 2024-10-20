@@ -16,5 +16,5 @@ def create_parcel(parcel: Parcel, current_user: str = Depends(get_current_user))
 
 
 @router.get("/parcels", response_model=List[Parcel])
-def get_parcels_by_user_id(user_id: Optional[int] = None, current_user: str = Depends(get_current_user)):
-    return parcel_service.find_all_or_by_user_id(user_id)
+def get_parcels_by_user(user_id: Optional[int] = None, current_user: str = Depends(get_current_user)):
+    return parcel_service.find_by_user_id(user_id)

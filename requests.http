@@ -1,58 +1,59 @@
+### Получение JWT
 POST http://localhost:8000/token
 Content-Type: application/x-www-form-urlencoded
 
-grant_type=password&username=admin&password=secret
-###
+username=admin&password=secret&expiration_min=30
+### Получение списка всех пользователей
 GET http://localhost:8000/users
 Authorization: Bearer
-###
+### Получение пользователя с логином "admin"
 GET http://localhost:8000/users/admin
 Authorization: Bearer
-###
+### Получение пользователей с именем, содержащим "Admin", и фамилией, содержащей "Adminov"
 GET http://localhost:8000/users?first_name=Admin&last_name=Adminov
 Authorization: Bearer
-###
+### Добавление пользователя с логином "iivanov"
 POST http://localhost:8000/users
 Authorization: Bearer
 Content-Type: application/json
 
 {"username": "iivanov", "password": "ivan1234", "first_name": "Ivan", "last_name": "Ivanov", "email": "iivanov@gmail.com", "address": "6 Tverskaya Street Moscow"}
-###
+### Добавление посылки для пользователя с id = 1
 POST http://localhost:8000/parcels
 Authorization: Bearer
 Content-Type: application/json
 
 {"description": "Clothes", "weight": 2.57, "user_id": 1}
-###
+### Добавление посылки для пользователя с id = 2
 POST http://localhost:8000/parcels
 Authorization: Bearer
 Content-Type: application/json
 
 {"description": "Stationery", "weight": 0.42, "user_id": 2}
-###
+### Получение списка всех посылок
 GET http://localhost:8000/parcels
 Authorization: Bearer
-###
+### Получение списка посылок для пользователя с id = 1
 GET http://localhost:8000/parcels?user_id=1
 Authorization: Bearer
-###
+### Добавление доставки, где отправитель - пользователь с id = 1, получатель - пользователь с id = 2
 POST http://localhost:8000/deliveries
 Authorization: Bearer
 Content-Type: application/json
 
 {"sender_id": 1, "receiver_id": 2}
-###
+### Добавление доставки, где отправитель - пользователь с id = 2, получатель - пользователь с id = 1
 POST http://localhost:8000/deliveries
 Authorization: Bearer
 Content-Type: application/json
 
 {"sender_id": 2, "receiver_id": 1}
-###
+### Получение списка всех доставок
 GET http://localhost:8000/deliveries
 Authorization: Bearer
-###
+### Получение списка доставок, где отправитель - пользователь с id = 1
 GET http://localhost:8000/deliveries?sender_id=1
 Authorization: Bearer
-###
+### Получение списка доставок, где получатель - пользователь с id = 1
 GET http://localhost:8000/deliveries?receiver_id=1
 Authorization: Bearer
