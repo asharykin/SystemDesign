@@ -55,7 +55,7 @@ class ParcelService:
         self.parcels[parcel.id] = parcel
         return parcel
 
-    def find_by_user_id(self, user_id: int):
+    def find_by_user_id(self, user_id: Optional[int] = None):
         return [parcel for parcel in self.parcels.values() if user_id is None or parcel.user_id == user_id]
 
 
