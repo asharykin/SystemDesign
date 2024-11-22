@@ -16,16 +16,6 @@ class User(Base):
     address = Column(String, nullable=False)
 
 
-class Parcel(Base):
-    __tablename__ = "parcels"
-
-    id = Column(Integer, primary_key=True, autoincrement=True)
-    description = Column(String, nullable=False)
-    weight = Column(Float, nullable=False)
-    user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
-    delivery_id = Column(Integer, ForeignKey("deliveries.id"), nullable=False)
-
-
 class Delivery(Base):
     __tablename__ = "deliveries"
 
