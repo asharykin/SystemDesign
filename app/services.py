@@ -3,12 +3,17 @@ from typing import Optional, List
 from passlib.context import CryptContext
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
+from pymongo import MongoClient
 
-from entities import User, Delivery, Parcel
+from entities import User, Delivery
+from models import Parcel
 
 DB_URL = "postgresql://postgres:123456@db:5432/postgres"
 engine = create_engine(DB_URL)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+
+MONGO_URL = "mongodb://mongo:27017/"
+client = MongoClient(MONGO_URL)
 
 
 class UserService:
@@ -51,22 +56,23 @@ class UserService:
 
 class ParcelService:
     def __init__(self):
-        self.session = SessionLocal
+        self.collection = client["mongo"]["parcels"]
+        self.collection.create_index([("user_id", 1)])
+        self.save(Parcel(description="Clothes", weight=2.575, user_id=1, delivery_id=1))
+        self.save(Parcel(description="Stationery", weight=0.425, user_id=2, delivery_id=2))
 
     def save(self, parcel: Parcel):
-        with self.session() as session:
-            parcel = Parcel(**parcel.__dict__)
-            session.add(parcel)
-            session.commit()
-            session.refresh(parcel)
-            return parcel
+        result = self.collection.insert_one(parcel.__dict__)
+        parcel.id = str(result.inserted_id)
+        return parcel
 
     def find_by_user_id(self, user_id: Optional[int] = None):
-        with self.session() as session:
-            if user_id:
-                return session.query(Parcel).filter(Parcel.user_id == user_id).all()
-            else:
-                return session.query(Parcel).all()
+        if user_id:
+            query = {"user_id": user_id}
+        else:
+            query = {}
+        parcels = self.collection.find(query)
+        return [Parcel(**parcel) for parcel in parcels]
 
 
 class DeliveryService:

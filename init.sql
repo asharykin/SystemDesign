@@ -1,5 +1,3 @@
-DROP TABLE IF EXISTS parcels CASCADE;
-
 DROP TABLE IF EXISTS deliveries CASCADE;
 
 DROP TABLE IF EXISTS users CASCADE;
@@ -20,21 +18,11 @@ CREATE TABLE deliveries (
     receiver_id INT NOT NULL REFERENCES users (id)
 );
 
-CREATE TABLE parcels (
-    id SERIAL PRIMARY KEY,
-    description TEXT NOT NULL,
-    weight REAL NOT NULL,
-    user_id INT NOT NULL REFERENCES users (id),
-    delivery_id INT NOT NULL REFERENCES deliveries (id)
-);
-
 -- Для users.username индекс будет создан автоматически, так как это поле уникальное
 
 CREATE INDEX ON users (first_name);
 
 CREATE INDEX ON users (last_name);
-
-CREATE INDEX ON parcels (delivery_id);
 
 CREATE INDEX ON deliveries (sender_id);
 
@@ -51,9 +39,3 @@ VALUES (1, 2);
 
 INSERT INTO deliveries (sender_id, receiver_id)
 VALUES (2, 1);
-
-INSERT INTO parcels (description, weight, user_id, delivery_id)
-VALUES ('Clothes', 2.575, 1, 1);
-
-INSERT INTO parcels (description, weight, user_id, delivery_id)
-VALUES ('Stationery', 0.425, 2, 2);

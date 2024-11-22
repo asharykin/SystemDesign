@@ -1,4 +1,5 @@
-from pydantic import BaseModel
+from bson import ObjectId
+from pydantic import BaseModel, Field
 
 
 class User(BaseModel):
@@ -15,14 +16,11 @@ class User(BaseModel):
 
 
 class Parcel(BaseModel):
-    id: int = None
+    id: str = Field(default_factory=lambda: str(ObjectId()))
     description: str
     weight: float
     user_id: int
     delivery_id: int
-
-    class Config:
-        orm_mode = True
 
 
 class Delivery(BaseModel):
