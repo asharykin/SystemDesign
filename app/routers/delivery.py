@@ -2,7 +2,7 @@ from typing import List, Optional
 
 from fastapi import APIRouter, Depends
 
-from entities import Delivery
+from models import Delivery
 from routers.auth import get_current_user
 from services import DeliveryService
 

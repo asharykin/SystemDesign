@@ -2,7 +2,7 @@ from typing import List, Optional
 
 from fastapi import APIRouter, Depends
 
-from entities import Parcel
+from models import Parcel
 from routers.auth import get_current_user
 from services import ParcelService
 

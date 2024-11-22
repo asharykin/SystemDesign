@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 
-from routers import delivery, parcel, user, auth
+from routers import auth, delivery, parcel, user
 
 app = FastAPI()
 

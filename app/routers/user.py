@@ -2,7 +2,7 @@ from typing import List, Optional
 
 from fastapi import APIRouter, HTTPException, Depends
 
-from entities import User
+from models import User
 from routers.auth import get_current_user
 from services import UserService
 
