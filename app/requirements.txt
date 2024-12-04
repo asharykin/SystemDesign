@@ -8,3 +8,4 @@ bcrypt
 sqlalchemy
 psycopg2-binary
 pymongo
+redis
