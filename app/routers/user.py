@@ -4,7 +4,7 @@ from fastapi import APIRouter, HTTPException, Depends
 
 from models import User
 from routers.auth import get_current_user
-from services import UserService
+from services.user import UserService
 
 router = APIRouter()
 user_service = UserService()
@@ -17,7 +17,7 @@ def get_users(first_name: Optional[str] = "", last_name: Optional[str] = "", cur
     return user_service.find_all()
 
 
-@router.post("/users", response_model=User)
+@router.post("/users", response_model=str)
 def create_user(user: User, current_user: str = Depends(get_current_user)):
     if user_service.find_by_username(user.username):
         raise HTTPException(status_code=400, detail="User with such username already exists")

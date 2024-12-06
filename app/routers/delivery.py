@@ -4,7 +4,7 @@ from fastapi import APIRouter, Depends
 
 from models import Delivery
 from routers.auth import get_current_user
-from services import DeliveryService
+from services.delivery import DeliveryService
 
 router = APIRouter()
 delivery_service = DeliveryService()

@@ -4,7 +4,7 @@ from fastapi import APIRouter, Depends
 
 from models import Parcel
 from routers.auth import get_current_user
-from services import ParcelService
+from services.parcel import ParcelService
 
 router = APIRouter()
 parcel_service = ParcelService()

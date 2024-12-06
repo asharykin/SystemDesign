@@ -5,7 +5,7 @@ from fastapi import APIRouter, Depends, Form, HTTPException
 from fastapi.security import OAuth2PasswordRequestForm, OAuth2PasswordBearer
 from jose import jwt, JWTError, ExpiredSignatureError
 
-from services import UserService
+from services.user import UserService
 
 SECRET_KEY = "your-secret-key"
 DEFAULT_EXPIRATION_TIME = 15
