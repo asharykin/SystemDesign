@@ -1,4 +1,7 @@
 import json
+import threading
+import time
+
 from confluent_kafka import Producer, Consumer
 from passlib.context import CryptContext
 
@@ -60,6 +63,7 @@ class UserConsumer:
 
     def consume(self):
         while True:
+            time.sleep(5)
             msg = self.kafka_consumer.poll()
 
             if msg is None:
@@ -72,3 +76,6 @@ class UserConsumer:
             with self.session() as session:
                 session.add(user)
                 session.commit()
+
+    def run(self):
+        threading.Thread(target=self.consume, daemon=True).start()

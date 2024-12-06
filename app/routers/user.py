@@ -4,10 +4,12 @@ from fastapi import APIRouter, HTTPException, Depends
 
 from models import User
 from routers.auth import get_current_user
-from services.user import UserService
+from services.user import UserService, UserConsumer
 
 router = APIRouter()
 user_service = UserService()
+user_consumer = UserConsumer()
+user_consumer.run()
 
 
 @router.get("/users", response_model=List[User])
